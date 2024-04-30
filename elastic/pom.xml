@@ -8,6 +8,7 @@
 		<version>3.2.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
 	<groupId>com.gmail.ramawthar.priyash</groupId>
 	<artifactId>elastic</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
