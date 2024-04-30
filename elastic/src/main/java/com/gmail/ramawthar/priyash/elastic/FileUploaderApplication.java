@@ -7,10 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 import com.gmail.ramawthar.priyash.elastic.controller.EmployeeController;
 
 @SpringBootApplication
-public class ElasticApplication {
+public class FileUploaderApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ElasticApplication.class, args);
+		SpringApplication.run(FileUploaderApplication.class, args);
 	}
 
 }
