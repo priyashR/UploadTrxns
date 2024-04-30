@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-/////import com.gmail.ramawthar.priyash.queueLogic.ProcessBatchedTransactions;
+import com.gmail.ramawthar.priyash.elastic.process.ProcessBatchedTransactions;
 /////import com.gmail.ramawthar.priyash.queueLogic.ProcessTransactions;
 
 
@@ -60,9 +60,11 @@ public class BatchIngestServiceImpl implements BatchIngestService {
     /////    @Qualifier("trxnSrvc")
  /////   TransactionService transactionService;
     
-    /////   @Autowired
-    /////  @Qualifier("BatchTrxnSrvc")
- /////   BatchedTransactionService batchedTransactionService;
+    @Autowired
+    @Qualifier("BatchTrxnSrvc")
+    BatchedTransactionService batchedTransactionService;
+    
+    
 	private void pushToDB(String processedLine){
     	
     	if (processFile == false) {
@@ -86,8 +88,8 @@ public class BatchIngestServiceImpl implements BatchIngestService {
         	
         //System.out.println("Account = "+account);
         //System.out.println("User = "+user);
-        	 /////  	ProcessBatchedTransactions pbt = new ProcessBatchedTransactions(processedLine.toString(), batchedTransactionService, user, account);
-        	 /////     pbt.action();
+          	ProcessBatchedTransactions pbt = new ProcessBatchedTransactions(processedLine.toString(), batchedTransactionService, user, account);
+            pbt.action();
         }
         
 	}

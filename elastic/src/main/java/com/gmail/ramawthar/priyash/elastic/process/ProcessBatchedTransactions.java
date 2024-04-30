@@ -25,7 +25,7 @@ public class ProcessBatchedTransactions {
 	
 	public void action(){
 		loadTransactionObj();
-		//pushTransactionToDB();
+		pushTransactionToDB();
 		
 	}
 	
