@@ -6,7 +6,6 @@ import java.util.StringTokenizer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-//@Document(indexName = "batched-transactions", type = "_doc")
 @Document(indexName = "batched-trxns")
 public class BatchedTransaction {
 

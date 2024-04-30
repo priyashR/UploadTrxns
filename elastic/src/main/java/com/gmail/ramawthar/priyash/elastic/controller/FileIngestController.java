@@ -18,7 +18,6 @@ public class FileIngestController {
 	BatchIngestService budgetIngestService;
 	
  	  @RequestMapping(value = "/processCSVFile", method = RequestMethod.POST)
-	  //public ResponseEntity<Object> processFile(@Valid @RequestBody String input) {
 	  	public ResponseEntity<Object> handleFileUpload(@RequestParam("file") MultipartFile file,
 				RedirectAttributes redirectAttributes) {
 		  System.out.println(budgetIngestService.processCSVFile(file));
@@ -27,4 +26,5 @@ public class FileIngestController {
 			//logger.info("Controller call to fetchPath");
 	    return new ResponseEntity<>(HttpStatus.OK);
 	  }
+ 	  
 }

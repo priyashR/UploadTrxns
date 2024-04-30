@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gmail.ramawthar.priyash.elastic.process.ProcessBatchedTransactions;
-/////import com.gmail.ramawthar.priyash.queueLogic.ProcessTransactions;
 
 
 
@@ -55,11 +54,7 @@ public class BatchIngestServiceImpl implements BatchIngestService {
     	
     	return status;
     }
-    
-    /////    @Autowired
-    /////    @Qualifier("trxnSrvc")
- /////   TransactionService transactionService;
-    
+        
     @Autowired
     @Qualifier("BatchTrxnSrvc")
     BatchedTransactionService batchedTransactionService;
