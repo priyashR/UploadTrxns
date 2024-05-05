@@ -88,4 +88,23 @@ public class BatchIngestServiceImpl implements BatchIngestService {
         }
         
 	}
+	
+
+    public String reprocessCategories() {
+    	
+    	System.out.println(batchedTransactionService.findByReference("tmp").size());
+    	
+    	//for each BatchedTransaction
+    	//delete from db
+    	//batchedTransactionService.delete(batchedTransaction);
+    	//update the category 
+    	//save new record
+    	//batchedTransactionService.save(batchedTransaction);
+    	
+    	
+    	
+    	
+    	return "done";
+    	
+    }
 }

@@ -11,4 +11,7 @@ public interface BatchedTransactionService {
     void delete(BatchedTransaction batchedTransaction);
     
     List<BatchedTransaction> findByTranDate(String tranDate);
+    
+
+    List<BatchedTransaction> findByReference(String reference);
 }

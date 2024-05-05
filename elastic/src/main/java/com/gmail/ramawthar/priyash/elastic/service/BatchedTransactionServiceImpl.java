@@ -37,4 +37,10 @@ public class BatchedTransactionServiceImpl implements BatchedTransactionService{
 		return batchedtransactionRepository.findByTranDate(tranDate);
 	}
 
+	@Override
+	public List<BatchedTransaction> findByReference(String reference) {
+		// TODO Auto-generated method stub
+		return batchedtransactionRepository.findByReference(reference);
+	}
+
 }
