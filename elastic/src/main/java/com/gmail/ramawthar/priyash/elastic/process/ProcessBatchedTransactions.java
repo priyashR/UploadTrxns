@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
+import org.springframework.web.client.RestTemplate;
+
 import com.gmail.ramawthar.priyash.elastic.model.BatchedTransaction;
 //import com.gmail.ramawthar.priyash.elastic.model.Transaction;
 import com.gmail.ramawthar.priyash.elastic.service.BatchedTransactionService;
@@ -38,7 +40,7 @@ public class ProcessBatchedTransactions {
 
     		if (count==1){batchedTransactionObj.setTranDate(st.nextToken());}//tranDate 
     		else if (count==2){batchedTransactionObj.setAmount(st.nextToken().trim());}//amount
-    		else if (count==3){}//ignore balance
+    		else if (count==3){st.nextToken();}//ignore balance
     		else if (count==4){batchedTransactionObj.setReference(st.nextToken());}//reference
     		//else if (count==5){batchedTransactionObj.setCategoryTree(st.nextToken());}//categoryTree
     		//else if (count==6){batchedTransactionObj.setAccount(st.nextToken());}//account
@@ -48,13 +50,13 @@ public class ProcessBatchedTransactions {
     	batchedTransactionObj.setCategoryTree("UNCATEGORISED");
     	batchedTransactionObj.setAccount(this.trxnAccount);
     	batchedTransactionObj.setUser(this.trxnUser);
-    	
+    	/*
 		if (batchedTransactionObj.getAmount().startsWith("-")){
 			batchedTransactionObj.setReference("expenseUNCAT");
 		}
-		else{batchedTransactionObj.setReference("incomeUNCAT");};
+		else{batchedTransactionObj.setReference("incomeUNCAT");};*/
     	
-		/*
+		
 		String tranType = "I";
     	if (batchedTransactionObj.getAmount().startsWith("-")){
     		tranType = "E";
@@ -63,15 +65,16 @@ public class ProcessBatchedTransactions {
     	//call the get category family here
     	
     	//batchedTransactionObj.setCategoryTree
-    	final String uri = "http://127.0.0.1:9875/fetchPath";
+    	final String uri = "http://127.0.0.1:9006/fetchPath";
     	FetchPathInput fip = new FetchPathInput();
     	fip.setCategory(batchedTransactionObj.getReference());
     	fip.setTranType(tranType);
     	
     	RestTemplate restTemplate = new RestTemplate();
     	
-    	String categoryFamily= restTemplate.postForObject(uri, fip, String.class);*/
-    	String categoryFamily= batchedTransactionObj.getReference();
+    	String categoryFamily= restTemplate.postForObject(uri, fip, String.class);
+    	
+    	//String categoryFamily= batchedTransactionObj.getReference();
     	batchedTransactionObj.setCategoryTree(categoryFamily);
     	System.out.println(batchedTransactionObj.getAccount()+" "+batchedTransactionObj.getAmount()+" "+batchedTransactionObj.getCategoryTree()+" " +batchedTransactionObj.getUser());
     	//System.out.println("result: " +categoryFamily);
@@ -87,7 +90,8 @@ public class ProcessBatchedTransactions {
 																	   new BigDecimal(batchedTransactionObj.getAmount()),
 																	   batchedTransactionObj.getUser());
 		
-		
+		System.out.println("saving the transaction");
 		batchedTransactionService.save(batchedTransaction);
+		System.out.println("DONE saving the transaction");
 	}
 }
