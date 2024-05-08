@@ -42,5 +42,10 @@ public class BatchedTransactionServiceImpl implements BatchedTransactionService{
 		// TODO Auto-generated method stub
 		return batchedtransactionRepository.findByReference(reference);
 	}
-
+	@Override
+	public List<BatchedTransaction> findByLevel1(String level1) {
+		// TODO Auto-generated method stub
+		return batchedtransactionRepository.findByLevel1(level1);
+	}
+	
 }

@@ -14,4 +14,7 @@ public interface BatchedTransactionService {
     
 
     List<BatchedTransaction> findByReference(String reference);
+
+    List<BatchedTransaction> findByLevel1(String level1);
+    
 }

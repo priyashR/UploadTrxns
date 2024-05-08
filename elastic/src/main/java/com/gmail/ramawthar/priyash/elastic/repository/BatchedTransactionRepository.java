@@ -10,5 +10,7 @@ public interface BatchedTransactionRepository extends ElasticsearchRepository<Ba
 
     List<BatchedTransaction> findByTranDate(String tranDate);
     List<BatchedTransaction> findByReference(String reference);
+    List<BatchedTransaction> findByLevel1(String level1);
+
 
 }

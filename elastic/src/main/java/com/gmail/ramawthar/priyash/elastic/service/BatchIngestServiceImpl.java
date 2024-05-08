@@ -12,8 +12,11 @@ import java.util.StringTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gmail.ramawthar.priyash.elastic.model.BatchedTransaction;
+import com.gmail.ramawthar.priyash.elastic.process.FetchPathInput;
 import com.gmail.ramawthar.priyash.elastic.process.ProcessBatchedTransactions;
 
 
@@ -92,16 +95,82 @@ public class BatchIngestServiceImpl implements BatchIngestService {
 
     public String reprocessCategories() {
     	
-    	System.out.println(batchedTransactionService.findByReference("tmp").size());
-    	
-    	//for each BatchedTransaction
-    	//delete from db
-    	//batchedTransactionService.delete(batchedTransaction);
-    	//update the category 
-    	//save new record
-    	//batchedTransactionService.save(batchedTransaction);
+    	//System.out.println(batchedTransactionService.findByLevel1("expenseUNCAT").size());
     	
     	
+    	
+    	
+
+    	
+    	List<BatchedTransaction> trxns = batchedTransactionService.findByLevel1("expenseUNCAT");
+        for (BatchedTransaction b : trxns) {
+        	 
+            // Print all elements of ArrayList
+            //System.out.println(b.getId());
+            //System.out.println(b.getReference());
+            //batchedTransactionService.delete(b);
+        	
+    		String tranType = "I";
+        	if (b.getAmount().toString().startsWith("-")){
+        		tranType = "E";
+    		}
+        	
+        	//call the get category family here
+        	
+        	//batchedTransactionObj.setCategoryTree
+        	final String uri = "http://127.0.0.1:9006/fetchPath";
+        	FetchPathInput fip = new FetchPathInput();
+        	fip.setCategory(b.getReference());
+        	fip.setTranType(tranType);
+        	
+        	RestTemplate restTemplate = new RestTemplate();
+        	
+        	String categoryFamily= restTemplate.postForObject(uri, fip, String.class);
+        	
+
+        	b.setCategoryTree(categoryFamily);        	
+        	
+        	
+        	
+            //b.setReference("test2");
+            
+            batchedTransactionService.save(b);
+            
+        }
+        
+    	List<BatchedTransaction> trxns2 = batchedTransactionService.findByLevel1("incomeUNCAT");
+        for (BatchedTransaction b : trxns2) {
+        	 
+            // Print all elements of ArrayList
+            //System.out.println(b.getId());
+            //System.out.println(b.getReference());
+            //batchedTransactionService.delete(b);
+        	
+    		String tranType = "I";
+        	if (b.getAmount().toString().startsWith("-")){
+        		tranType = "E";
+    		}
+        	
+        	//call the get category family here
+        	
+        	//batchedTransactionObj.setCategoryTree
+        	final String uri = "http://127.0.0.1:9006/fetchPath";
+        	FetchPathInput fip = new FetchPathInput();
+        	fip.setCategory(b.getReference());
+        	fip.setTranType(tranType);
+        	
+        	RestTemplate restTemplate = new RestTemplate();
+        	
+        	String categoryFamily= restTemplate.postForObject(uri, fip, String.class);
+        	
+
+        	b.setCategoryTree(categoryFamily);  
+        	
+            //b.setReference("test2");
+            
+            batchedTransactionService.save(b);
+            
+        }        
     	
     	
     	return "done";
