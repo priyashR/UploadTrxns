@@ -95,12 +95,7 @@ public class BatchIngestServiceImpl implements BatchIngestService {
 
     public String reprocessCategories() {
     	
-    	//System.out.println(batchedTransactionService.findByLevel1("expenseUNCAT").size());
     	
-    	
-    	
-    	
-
     	
     	List<BatchedTransaction> trxns = batchedTransactionService.findByLevel1("expenseUNCAT");
         for (BatchedTransaction b : trxns) {

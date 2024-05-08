@@ -31,6 +31,7 @@ public class ProcessBatchedTransactions {
 		
 	}
 	
+	
 	private void loadTransactionObj(){
 		System.out.println(transactionLine);
 		StringTokenizer st = new StringTokenizer(transactionLine,",");  
@@ -41,7 +42,7 @@ public class ProcessBatchedTransactions {
     		if (count==1){batchedTransactionObj.setTranDate(st.nextToken());}//tranDate 
     		else if (count==2){batchedTransactionObj.setAmount(st.nextToken().trim());}//amount
     		else if (count==3){st.nextToken();}//ignore balance
-    		else if (count==4){batchedTransactionObj.setReference(st.nextToken());}//reference
+    		else if (count==4){batchedTransactionObj.setReference(st.nextToken().trim());}//reference
     		//else if (count==5){batchedTransactionObj.setCategoryTree(st.nextToken());}//categoryTree
     		//else if (count==6){batchedTransactionObj.setAccount(st.nextToken());}//account
     		//else if (count==7){batchedTransactionObj.setUser(transactionLine);}//user
