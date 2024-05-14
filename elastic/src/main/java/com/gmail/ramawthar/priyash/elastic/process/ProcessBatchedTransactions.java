@@ -51,6 +51,11 @@ public class ProcessBatchedTransactions {
     	batchedTransactionObj.setCategoryTree("UNCATEGORISED");
     	batchedTransactionObj.setAccount(this.trxnAccount);
     	batchedTransactionObj.setUser(this.trxnUser);
+    	
+    	
+    	
+    	batchedTransactionObj.setReference(trimReference(batchedTransactionObj.getReference()));
+    	
     	/*
 		if (batchedTransactionObj.getAmount().startsWith("-")){
 			batchedTransactionObj.setReference("expenseUNCAT");
@@ -95,4 +100,59 @@ public class ProcessBatchedTransactions {
 		batchedTransactionService.save(batchedTransaction);
 		System.out.println("DONE saving the transaction");
 	}
+	
+	private String trimReference(String ref) {
+		
+		if (ref.trim().toUpperCase().startsWith("ADT JHB")){
+			return "ADT JHB";
+		}
+		
+		if (ref.trim().toUpperCase().startsWith("BEAME")){
+			return "BEAME";
+		}
+		
+		if (ref.trim().toUpperCase().startsWith("1BB CC")){
+			return "1BB CC";
+		}
+		
+		if (ref.trim().toUpperCase().startsWith("CELL CASH")){
+			return "CELL CASH";
+		}
+		
+		if (ref.trim().toUpperCase().startsWith("FNB INSURE")){
+			return "FNB INSURE";
+		}
+		
+		if (ref.trim().toUpperCase().startsWith("FNBBROKERS")){
+			return "FNBBROKERS";
+		}
+		
+		if (ref.trim().toUpperCase().startsWith("FNB CC")){
+			return "FNB CC";
+		}
+		
+		if (ref.trim().toUpperCase().startsWith("HM CONNECTHC1")){
+			return "HM CONNECTHC1";
+		}
+		
+		if (ref.trim().toUpperCase().startsWith("LIBERTY050")){
+			return "LIBERTY050";
+		}
+		
+		if (ref.trim().toUpperCase().startsWith("SALARY")){
+			return "SALARY";
+		}
+		
+		return ref;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
